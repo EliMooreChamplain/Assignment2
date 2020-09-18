@@ -1,6 +1,9 @@
 vec4 effect1(in vec4 fragColor, in vec2 resolution)
 {
-    return vec4(0,0,0,0);
+    //if the added up resolutions (excluding the ones place) are even, both of them are even
+    float total = floor(resolution.x * .1) + floor(resolution.y * .1);
+    bool checker = mod(total, 2.0) == 0.0;
+    return (checker) ? vec4(1,0,0,1) : vec4(0,0,1,1);
 }
 
 vec4 effect0(in vec4 fragColor, in vec2 resolution)
@@ -11,21 +14,19 @@ vec4 effect0(in vec4 fragColor, in vec2 resolution)
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-    fragColor = effect1(fragColor, iResolution.xy, fragCoord, 50);
+    fragColor = effect1(fragColor, fragCoord);
 }
 
 /*
-vec4 effect2(in vec4 fragColor, in vec2 resolution, in vec2 fragCoord, in int diameter)
+vec4 effect2(in vec4 fragColor, in vec2 resolution, in vec2 fragCoord)
 {
     
     //Move the position to the origin
     vec2 relativePos = fragCoord - (resolution * 0.5);
     //Distance from origin is smaller than radius
-    if(sqrt(relativePos.x * relativePos.x) + (relativePos.y * relativePos.y) < diameter) // I don't know what I'm doing wrong here
-    {
-        return vec4(1,0,0,1);
-    }
-    return vec4(0,0,1,1);
+    bool isInCircle = sqrt(relativePos.x * relativePos.x) + (relativePos.y * relativePos.y) < 50;// I don't know what I'm doing wrong here
+    
+    return (isInCircle)? vec4(1,0,0,1) : vec4(0,0,1,1);
 }
 */
 
