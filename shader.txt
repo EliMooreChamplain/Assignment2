@@ -1,0 +1,10 @@
+vec4 effect0(in vec4 fragColor, in vec2 resolution)
+{
+    vec4 color = vec4(1,1,0,1);
+    return color;
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    fragColor = effect0(fragColor, fragCoord);
+}
